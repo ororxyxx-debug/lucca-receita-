@@ -127,6 +127,23 @@
       if (v != null) el.style.backgroundImage = "url('" + v + "')";
     });
 
+    /* mídia do hero: vídeo (.mp4) ou imagem de fundo */
+    const heroBgInner = document.querySelector('.hero-bg-inner');
+    if (heroBgInner && R.hero && R.hero.image) {
+      if (/\.(mp4|webm)(\?|$)/i.test(R.hero.image)) {
+        heroBgInner.style.backgroundImage = 'none';   // evita baixar o gif de fallback do CSS
+        const v = document.createElement('video');
+        v.src = R.hero.image;
+        v.autoplay = true; v.loop = true; v.muted = true; v.defaultMuted = true; v.preload = 'auto';
+        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
+        v.className = 'hero-video';
+        heroBgInner.appendChild(v);
+        v.play().catch(() => {});
+      } else {
+        heroBgInner.style.backgroundImage = "url('" + R.hero.image + "')";
+      }
+    }
+
     const cImg = document.querySelector('[data-src="curator.photo"]');
     if (cImg) cImg.setAttribute('alt', plain(R.curator && R.curator.name) || R.coffeeName || '');
 
@@ -205,9 +222,13 @@
         const text  = gramSpans(rich(s.text), v0);
         const time  = gramSpans(rich(s.time), v0);
         const badge = gramSpans(rich(s.badge || ''), v0);
+        const label = attr(plain(s.alt || s.title));
+        const media = /\.(mp4|webm)(\?|$)/i.test(s.img || '')
+          ? '<video class="step-vid" src="' + attr(s.img) + '" loop muted playsinline preload="metadata" aria-label="' + label + '"></video>'
+          : '<img src="' + attr(s.img) + '" alt="' + label + '" loading="lazy">';
         return '<article class="step' + (i === 0 ? ' active' : '') + '" data-step="' + i + '" onclick="goStep(' + i + ')">' +
           '<div class="step-media skeleton">' +
-            '<img src="' + attr(s.img) + '" alt="' + attr(plain(s.alt || s.title)) + '" loading="lazy">' +
+            media +
             '<span class="step-num">' + rich(s.num || String(i + 1).padStart(2, '0')) + '</span>' +
           '</div>' +
           '<div class="step-body">' +
@@ -220,11 +241,16 @@
         '</article>';
       }).join('');
 
-      /* shimmer: revela cada imagem quando carrega */
+      /* shimmer: revela cada mídia quando carrega (img ou vídeo) */
       sc.querySelectorAll('.step-media.skeleton img').forEach(img => {
         const done = () => { const p = img.closest('.step-media'); if (p) p.classList.add('is-loaded'); };
         if (img.complete) done();
         else { img.addEventListener('load', done); img.addEventListener('error', done); }
+      });
+      sc.querySelectorAll('.step-media.skeleton video').forEach(vid => {
+        const done = () => { const p = vid.closest('.step-media'); if (p) p.classList.add('is-loaded'); };
+        vid.addEventListener('loadeddata', done);
+        vid.addEventListener('error', done);
       });
     }
 
@@ -671,6 +697,20 @@
     requestAnimationFrame(frame);
   }
 
+  /* ───────── Vídeos dos passos (play só quando visível) ───────── */
+  function initStepVideos() {
+    const vids = document.querySelectorAll('.step-vid');
+    if (!vids.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else { try { v.pause(); } catch {} }
+      });
+    }, { threshold: 0.25 });
+    vids.forEach(v => io.observe(v));
+  }
+
   /* ───────── Scroll Handler ───────── */
   let ticking = false;
   let lastDot = null;
@@ -757,6 +797,7 @@
     initTempJourney();
     initReveals();
     initCountUp();
+    initStepVideos();
     initDotNav();
     render();
 

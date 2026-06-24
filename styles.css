@@ -133,7 +133,6 @@ body {
 .hero-bg { position: absolute; inset: -5% 0; overflow: hidden; will-change: transform; }
 .hero-bg-inner {
   position: absolute; inset: 0;
-  background-image: url('https://i.imgur.com/xMxcbQD.gif');
   background-size: cover; background-position: center 35%;
   transform: scale(1.08); transition: transform 2s var(--ease2);
 }
@@ -236,7 +235,6 @@ body {
 }
 .dossier-photo {
   position: relative; background-color: var(--ink);
-  background-image: url('https://i.imgur.com/qRgiyig.jpeg');
   background-size: cover; background-position: center;
   border-radius: 2px; overflow: hidden; min-height: 380px;
 }
@@ -349,7 +347,6 @@ body {
 .band { position: relative; z-index: 20; min-height: 72vh; min-height: 72svh; display: flex; align-items: flex-end; overflow: hidden; background: var(--ink); }
 .band-bg {
   position: absolute; inset: -8% 0;
-  background-image: url('https://i.imgur.com/x3RQt0W.jpeg');
   background-size: cover; background-position: center 45%;
   will-change: transform; animation: kenBurns 30s ease-in-out infinite alternate;
 }
@@ -977,3 +974,13 @@ body.focus-mode .dotnav { display: none !important; }
   font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--terra);
   font-variation-settings: "opsz" 14, "SOFT" 60; min-width: 1ch; text-align: right;
 }
+
+/* ─── VÍDEO (hero + passos) · no lugar de GIFs pesados ──────────────────────── */
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.step-media video {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(22%); transition: filter .5s, transform .8s var(--ease2);
+}
+.step.active .step-media video { filter: grayscale(0); transform: scale(1.03); }
+.skeleton video { opacity: 0; transition: opacity .6s var(--ease); }
+.skeleton.is-loaded video { opacity: 1; }

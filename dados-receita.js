@@ -67,7 +67,7 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   hero: {
     eyebrow: 'Receita Lucca Lab · Método V60',
-    image:   'https://i.imgur.com/xMxcbQD.gif',   // ⚠️ foto de fundo ainda é a antiga — troque
+    image:   'https://i.imgur.com/MbK9slu.mp4',   // fundo do hero (vídeo — versão leve do gif)
 
     // Título grande. Uma linha por item. Use *...* na que deve ficar terracota.
     titleLines: [
@@ -95,8 +95,8 @@ const RECIPE = {
     lede:     'Na *Fazenda Venturim*, em São Gabriel da Palha, os irmãos Isaac e Lucas conduzem um Conilon Diamante (Coffea Canephora) com *Honey Process* e perfil fermentado — o canéfora fino que o semi-árido capixaba sabe produzir.',
 
     photo: {
-      image: 'https://i.imgur.com/qRgiyig.jpeg',         // ⚠️ foto da fazenda ainda é a antiga — troque
-      stamp: 'Fazenda Venturim',                         // selo (canto superior)
+      image: 'https://i.imgur.com/BnIQhKp.jpeg',         // foto dos produtores
+      stamp: 'Isaac & Lucas Venturim',                   // selo (canto superior)
       tag:   '200 m · Semi-árido Capixaba · ES',          // legenda (canto inferior)
     },
 
@@ -200,41 +200,40 @@ const RECIPE = {
     max:        28,           // máximo do controle deslizante
     bloomMult:  2.75,         // pré-infusão = café × este número (2,75 → 20g = 55ml)
 
-    tempDisplay: '(definir)', // ⚠️ TEMPERATURA: você não passou — me diga e eu preencho
+    tempDisplay: '93°C',      // temperatura (padrão p/ café especial)
     grind:       'Grossa',    // moagem (painel de parâmetros)
-    bloomTemp:   '(definir)', // ⚠️ temperatura da água (grade de água)
-    mainTemp:    '(definir)', // ⚠️ temperatura da água (grade de água)
+    bloomTemp:   '93°C',      // temperatura da água (grade de água)
+    mainTemp:    '93°C',      // temperatura da água (grade de água)
 
     // start/end = segundos no timer (a barra de progresso e a linha do tempo usam isso).
-    // ⚠️ As imagens abaixo ainda são do Clever — troque pelas do V60 quando tiver.
     steps: [
       {
         num: '01', title: 'Preparo', badge: 'antes',
-        img: 'https://i.imgur.com/U5dNVJz.jpeg', alt: 'Preparo',
+        img: 'https://i.imgur.com/W0xssO7.mp4', alt: 'Preparo',
         time: 'Antes de iniciar o timer', start: 0, end: 0,
         text: 'Moa **grosso**. Coloque o filtro de papel no V60 e **escalde com água quente** para tirar o gosto de papel; descarte essa água. Adicione {cafe} de café e nivele o leito.',
       },
       {
         num: '02', title: 'Pré-infusão', badge: '+{bloom}',
-        img: 'https://i.imgur.com/G9kqroE.gif', alt: 'Pré-infusão',
+        img: 'https://i.imgur.com/aUTWD2K.mp4', alt: 'Pré-infusão',
         time: '0:00 — 0:45', start: 0, end: 45,
         text: 'Inicie o timer e despeje {bloom} de água cobrindo todo o pó. **Assim que terminar de despejar, faça uma agitação (swirl) no porta-filtro** para assentar o leito. Deixe em pré-infusão até **0:45**.',
       },
       {
         num: '03', title: 'Ataque central', badge: '+{main}',
-        img: 'https://i.imgur.com/pHMA7sE.gif', alt: 'Ataque central',
+        img: 'https://i.imgur.com/Tcx3HIi.mp4', alt: 'Ataque central',
         time: '0:45 · Total: {total}', start: 45, end: 95,
         text: 'Aos **0:45**, faça o **primeiro ataque no centro**, despejando até completar **{total}** (mais {main} de água).',
       },
       {
         num: '04', title: 'Agitação', badge: 'swirl',
-        img: 'https://i.imgur.com/tFWNtU9.gif', alt: 'Agitação no porta-filtro',
+        img: 'https://i.imgur.com/0MHgkQg.mp4', alt: 'Agitação no porta-filtro',
         time: 'logo após o ataque', start: 95, end: 105,
         text: 'Depois do ataque, faça **uma nova agitação no porta-filtro** para uniformizar a extração.',
       },
       {
         num: '05', title: 'Drenagem', badge: '2:30 – 3:00',
-        img: 'https://i.imgur.com/hK3SvgQ.gif', alt: 'Drenagem',
+        img: 'https://i.imgur.com/ZyTFPlA.mp4', alt: 'Drenagem',
         time: 'termina entre 2:30 e 3:00', start: 105, end: 165,
         text: 'Deixe escoar por completo. A extração deve **terminar entre 2:30 e 3:00**.',
       },
@@ -245,20 +244,19 @@ const RECIPE = {
      9) QUEM DESENVOLVEU  ·  o curador da receita
      ───────────────────────────────────────────────────────────────────────── */
   curator: {
-    photo:    'https://i.imgur.com/jdelMZA.jpeg',
-    fallback: 'JV',          // iniciais, caso a foto não carregue
+    photo:    'https://i.imgur.com/RUy0IRZ.jpeg',
+    fallback: 'GG',          // iniciais, caso a foto não carregue
     role:     'Receita desenvolvida por',
-    name:     'João Vitor\n*Alves Mingorance.*',
-    bio:      'Gerente do **Lucca Lab**. Q-Grader credenciado. Garimpa o portfólio anual da casa, lote a lote.',
-    quote:    'O V60 deixa esse conilon mostrar a cara: percolação limpa para separar o *cacau*, a *canela* e o retrogosto de *whisky*. Moagem grossa e os dois swirls para uma extração pareja. Corpo cremoso, acidez baixa, xícara definida.',
+    name:     'Gabriel\n*Gonzalez.*',
+    bio:      'Barista do **Lucca Cafés Especiais** e **vice-campeão brasileiro de barista** no ano passado — agora em busca do título. Experiente, técnico e apaixonado pelo que faz.',
+    quote:    `Desenvolvemos esta receita para evidenciar aquilo que torna os cafés especiais tão fascinantes: a *transparência dos sabores*, a doçura natural e a expressão única da origem.
 
-    coursesLabel: 'Formações ministradas',
-    // Links de cursos. Deixe href: null para virar só uma etiqueta (sem link).
+Os parâmetros foram ajustados considerando a solubilidade deste café específico, permitindo uma extração fluida e precisa, capaz de revelar camadas sensoriais que muitas vezes passam despercebidas em preparos convencionais. O resultado é uma xícara *mais doce, limpa e expressiva*, onde as características do terroir, da variedade e do processamento podem ser apreciadas com maior clareza.`,
+
+    // Ele ainda não dá cursos no lab — então no lugar das formações vai a rede social.
+    coursesLabel: 'Onde acompanhar',
     courses: [
-      { label: 'Análise Sensorial Intermediário', href: 'https://luccacafesespeciais.com.br/produto/curso/sca/analise-sensorial-intermediario/' },
-      { label: 'Análise Sensorial Profissional',  href: 'https://luccacafesespeciais.com.br/produto/curso/sca/analise-sensorial-profissional/' },
-      { label: 'CVA For Cuppers',                 href: 'https://luccacafesespeciais.com.br/produto/curso/sca/coffee-value-assessment/' },
-      { label: 'Q-Grader',                        href: null },
+      { label: 'Instagram', href: 'https://www.instagram.com/_________gabe/' },
     ],
   },
 
