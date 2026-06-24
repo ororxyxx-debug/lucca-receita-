@@ -35,12 +35,12 @@ const RECIPE = {
   /* ─────────────────────────────────────────────────────────────────────────
      1) IDENTIFICAÇÃO  ·  o básico do projeto
      ───────────────────────────────────────────────────────────────────────── */
-  coffeeName: 'Vargem Grande e Pinheiros',   // nome do café (usado em mensagens)
+  coffeeName: 'Canéfora Fazenda Venturim',   // nome do café (usado em mensagens)
   whatsapp:   '554187627267',                // número do WhatsApp (só dígitos, com DDI 55)
 
   // Aparece na aba do navegador e quando o link é compartilhado:
-  pageTitle:       'Receita Clever · Vargem Grande e Pinheiros — Lucca Cafés Especiais',
-  pageDescription: 'Receita Lucca Lab para o café Vargem Grande e Pinheiros no método Clever — imersão limpa, doçura de morango e maracujá. Parâmetros, timer e passo a passo.',
+  pageTitle:       'Receita V60 · Canéfora Fazenda Venturim — Lucca Cafés Especiais',
+  pageDescription: 'Receita Lucca Lab para o café Canéfora Fazenda Venturim no método V60. Parâmetros, timer e passo a passo.',
 
   /* ─────────────────────────────────────────────────────────────────────────
      2) TOPO / MENU
@@ -66,23 +66,23 @@ const RECIPE = {
      3) HERO  ·  a abertura em tela cheia
      ───────────────────────────────────────────────────────────────────────── */
   hero: {
-    eyebrow: 'Receita Lucca Lab · Método Clever',
-    image:   'https://i.imgur.com/xMxcbQD.gif',   // fundo do hero (foto ou gif)
+    eyebrow: 'Receita Lucca Lab · Método V60',
+    image:   'https://i.imgur.com/xMxcbQD.gif',   // ⚠️ foto de fundo ainda é a antiga — troque
 
     // Título grande. Uma linha por item. Use *...* na que deve ficar terracota.
     titleLines: [
-      'Vargem Grande',
-      '*e Pinheiros.*',
+      'Canéfora Fazenda',
+      '*Venturim.*',
     ],
 
     // Frase sensorial curta embaixo do título:
-    sub: 'Morango, maracujá doce\ne um final **suculento.**',
+    sub: 'Cacau, canela\ne um final de **whisky.**',
 
     // Três números de destaque (valor em negrito + complemento):
     meta: [
-      { value: '89,82',   rest: 'pts SCA'        },
-      { value: '1.168 m', rest: '· Campos Altos' },
-      { value: '1:16',    rest: '· Clever'        },
+      { value: '200 m',  rest: '· Semi-árido Capixaba' },
+      { value: 'Honey',  rest: '· Fermentado' },
+      { value: '1:17,5', rest: '· V60' },
     ],
   },
 
@@ -90,39 +90,40 @@ const RECIPE = {
      4) O LOTE  ·  origem + dossiê do produtor
      ───────────────────────────────────────────────────────────────────────── */
   lote: {
-    index:    '/ O lote · **Cerrado Mineiro**',
-    headline: 'Uma das fazendas\n*mais premiadas do Brasil.*',
-    lede:     'Ano após ano, lote após lote, a *Bioma* retorna ao pódio. Este café, da Fazenda Vargem Grande e Pinheiros, ficou em *2º lugar no Concurso do Cerrado*, categoria Fermentado, entre dezenas de lotes excepcionais.',
+    index:    '/ O lote · **Espírito Santo**',
+    headline: 'Conilon fino do\n*semi-árido capixaba.*',
+    lede:     'Na *Fazenda Venturim*, em São Gabriel da Palha, os irmãos Isaac e Lucas conduzem um Conilon Diamante (Coffea Canephora) com *Honey Process* e perfil fermentado — o canéfora fino que o semi-árido capixaba sabe produzir.',
 
     photo: {
-      image: 'https://i.imgur.com/qRgiyig.jpeg',         // foto da fazenda
-      stamp: 'Faz. Vargem Grande e Pinheiros',           // selo (canto superior)
-      tag:   '1.168 m · Cerrado Mineiro · MG',            // legenda (canto inferior)
+      image: 'https://i.imgur.com/qRgiyig.jpeg',         // ⚠️ foto da fazenda ainda é a antiga — troque
+      stamp: 'Fazenda Venturim',                         // selo (canto superior)
+      tag:   '200 m · Semi-árido Capixaba · ES',          // legenda (canto inferior)
     },
 
     producer: {
       eyebrow: 'Quem cultivou',
-      name:    'Marcelo Assis\n*Nogueira.*',
-      quote:   'Na Fazenda Vargem Grande e Pinheiros, dentro da M&F Coffee — Bioma Café, Marcelo conduz cada etapa com controle e intenção. A fermentação induzida não é tendência. É escolha de processo.',
+      name:    'Isaac e Lucas\n*Venturim.*',
+      quote:   'Na *Fazenda Venturim*, os irmãos Isaac e Lucas conduzem o Conilon Diamante com Honey Process e fermentação — o processo que assina o perfil deste lote.',
     },
 
     specsLabel: 'Ficha técnica',
     // Tabela da ficha técnica — pares [rótulo, valor]. Pode ter mais ou menos linhas.
     specs: [
-      ['Produtor',    'Marcelo Assis Nogueira'],
-      ['Propriedade', '*M&F Coffee — Bioma Café*'],
-      ['Fazenda',     'Vargem Grande e Pinheiros'],
-      ['Região',      '*Cerrado Mineiro*'],
-      ['Município',   'Campos Altos, MG'],
-      ['Altitude',    '1.168 m'],
-      ['Variedade',   'Paraíso MG2'],
-      ['Processo',    '*Fermentação Induzida*'],
+      ['Produtor',    'Isaac e Lucas Venturim'],
+      ['Propriedade', '*Fazenda Venturim*'],
+      ['Região',      '*Semi-árido Capixaba*'],
+      ['Município',   'São Gabriel da Palha'],
+      ['Altitude',    '200 m'],
+      ['Variedade',   '*Conilon Diamante*'],
+      ['Espécie',     'Coffea Canephora'],
+      ['Processo',    '*Honey · Fermentado*'],
     ],
 
+    // Sem nota SCA informada — destaco a nota-assinatura do café no lugar.
     score: {
-      num:   '89,82',
-      label: '/100 pontos SCA',
-      note:  '2º lugar · Concurso do Cerrado · categoria Fermentado',
+      num:   'Whisky',
+      label: 'Nota assinatura',
+      note:  'Cacau · canela · retrogosto longo',
     },
   },
 
@@ -131,31 +132,25 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   sensorial: {
     index:    '/ Na xícara',
-    headline: 'Morango. Maracujá.\n*Suculento.*',
-    lede:     'Aroma de morango, pêssego e floral. Na boca, *acidez málica* e corpo que abraça sem pesar. Retrogosto longo e frutado.',
+    headline: 'Cacau, whisky\n*e canela.*',
+    lede:     'Aroma de *noz-moscada, canela e mascavo*. Na boca, cacau e whisky com canela; acidez baixa e corpo cremoso, com retrogosto longo de *whisky*.',
 
     // Três cartões de sabor:
     flavors: [
-      { rank: 'Sabor principal',  name: 'Geleia de Morango', desc: 'Doce e concentrada. Presente do aroma ao primeiro gole, assinatura da fermentação.' },
-      { rank: 'Acidez & frescor', name: 'Maracujá Doce',     desc: 'Málica. Frescor tropical sem agredir, equilibrando a doçura do morango.' },
-      { rank: 'Retrogosto',       name: 'Frutado Longo',     desc: 'Surge no fim com leve toque fermentado. Persistente.' },
+      { rank: 'Sabor principal', name: 'Cacau & Whisky',      desc: 'Cacau e whisky com canela. Acidez baixa, corpo cremoso.' },
+      { rank: 'Aroma',           name: 'Noz-moscada & Canela', desc: 'Noz-moscada, canela e açúcar mascavo já no aroma.' },
+      { rank: 'Retrogosto',      name: 'Whisky longo',         desc: 'Retrogosto marcante e persistente de whisky.' },
     ],
 
-    // Jornada de temperatura (como o café muda enquanto esfria):
-    coolingLabel: 'Como muda enquanto esfria',
-    cooling: [
-      { deg: '88–93°C', short: '88–93°', title: 'Quente',
-        text:  'Geleia de morango domina o aroma. A acidez málica fica contida pela temperatura. Corpo suculento, leve toque fermentado ao fundo.',
-        notes: ['Geleia de morango', 'Corpo suculento', 'Aroma intenso'] },
-      { deg: '60–70°C', short: '60–70°', title: 'Ponto ideal',
-        text:  'Maracujá doce aparece com clareza. Acidez málica equilibra a doçura frutada. Corpo pleno. É aqui que a fermentação induzida se mostra.',
-        notes: ['Maracujá doce vivo', 'Acidez málica', 'Morango pleno'] },
-      { deg: '40–55°C', short: '40–55°', title: 'Esfriando',
-        text:  'A acidez suaviza. O retrogosto frutado assume. A geleia de morango se transforma em fruta madura.',
-        notes: ['Retrogosto frutado', 'Fruta madura', 'Leve fermentado'] },
-      { deg: 'Ambiente', short: 'Frio', title: 'Transformado',
-        text:  'Quase um suco de frutas tropicais. A acidez descansa, resta doçura limpa de morango e maracujá com leve toque floral.',
-        notes: ['Suco tropical', 'Doçura pura', 'Morango persistente'] },
+    // Perfil sensorial — notas de 0 a 5 (vira barras na seção "Na xícara").
+    profileLabel: 'Perfil sensorial',
+    profile: [
+      { label: 'Aroma',      value: 3 },
+      { label: 'Sabor',      value: 4 },
+      { label: 'Acidez',     value: 2 },
+      { label: 'Corpo',      value: 5 },
+      { label: 'Doçura',     value: 3 },
+      { label: 'Retrogosto', value: 5 },
     ],
   },
 
@@ -164,8 +159,8 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   band: {
     image: 'https://i.imgur.com/x3RQt0W.jpeg',
-    quote: 'Campos Altos, 1.168 metros. Noites frias, dias secos. A Bioma transforma terroir em resultado. A *imersão do Clever* traduz esse cuidado.',
-    cite:  '— Lucca Lab · sobre o lote Vargem Grande e Pinheiros',
+    quote: 'São Gabriel da Palha, 200 metros de semi-árido capixaba. No *Honey Process*, os irmãos Venturim constroem um conilon de cacau, canela e whisky.',
+    cite:  '— Lucca Lab · sobre o lote Fazenda Venturim',
   },
 
   /* ─────────────────────────────────────────────────────────────────────────
@@ -173,23 +168,23 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   recipe: {
     index:    '/ Lucca Lab · A receita',
-    headline: 'A fermentação amplia.\nA extração *traduz.*',
-    lede:     'O *Clever* é imersão com filtro de papel: a água fica em contato com todo o pó, depois drena limpa pela válvula. Corpo de prensa francesa, clareza de coado. Previsível, perdoa pequenos erros e *destaca a doçura* deste lote.',
+    headline: 'O V60 separa.\nA clareza *aparece.*',
+    lede:     'O *V60* é percolação: a água passa pelo café e escorre na hora, sem ficar de molho. Com a moagem certa e os despejos no tempo, ele entrega uma xícara *limpa e definida* — ideal para mostrar o caráter deste canéfora.',
 
     // Os três motivos "por que esse método":
     why: [
-      { title: 'Imersão total',   desc: 'Toda a água trabalha o tempo todo. Extração uniforme, do primeiro ao último gole.' },
-      { title: 'Limpeza do papel', desc: 'A válvula drena por filtro de papel: retém óleos pesados, entrega xícara nítida.' },
-      { title: 'Perdoa erros',    desc: 'Você controla o tempo de imersão e a hora de drenar. Difícil errar. Fácil repetir.' },
+      { title: 'Percolação contínua', desc: 'A água atravessa o leito e drena na hora. Você controla o sabor pela moagem e pelo despejo.' },
+      { title: 'Xícara limpa',        desc: 'O filtro de papel retém os óleos pesados e entrega clareza e definição no copo.' },
+      { title: 'Agitação no ponto',   desc: 'Os dois swirls assentam e uniformizam o leito — extração pareja, sem caminhos preferenciais.' },
     ],
 
     stepsIndex:    '/ Passo a passo',
-    stepsHeadline: 'Imersão, turbulência\n*e drenagem.*',
+    stepsHeadline: 'Pré-infusão, ataque\n*e drenagem.*',
 
     // Caixa de dica no fim (uma linha por parágrafo):
     tip: [
-      '**Calibração.** Drenou antes de 2:30 → moa mais fino. Travou ou passou de 3:00 → mais grosso.',
-      'Pré-infusão a **90°C**, despejo a **94°C**. As 10 mexidas em 1:00 fazem parte da receita.',
+      '**Calibração.** Drenou antes de 2:30 → moa mais fino. Passou de 3:00 ou travou → mais grosso.',
+      'Os **dois swirls** (após a pré-infusão e após o ataque) fazem parte da receita: uniformizam o leito.',
     ],
   },
 
@@ -197,55 +192,51 @@ const RECIPE = {
      8) MÉTODO  ·  números do preparo, controle de dose e timer
      ───────────────────────────────────────────────────────────────────────── */
   method: {
-    name:       'Clever',     // nome do método (aparece em vários lugares)
-    ratio:      16,           // proporção água:café (1:16). Água = café × ratio
-    ratioLabel: '1 : 16',
-    ideal:      25,           // dose ideal de café, em gramas
-    min:        18,           // mínimo do controle deslizante
-    max:        32,           // máximo do controle deslizante
-    bloomMult:  2.0,          // pré-infusão = café × este número (2.0 → 25g vira 50g)
+    name:       'V60',        // nome do método (aparece em vários lugares)
+    ratio:      17.5,         // proporção água:café (1:17,5). Água = café × ratio
+    ratioLabel: '1 : 17,5',
+    ideal:      20,           // dose ideal de café, em gramas
+    min:        14,           // mínimo do controle deslizante
+    max:        28,           // máximo do controle deslizante
+    bloomMult:  2.75,         // pré-infusão = café × este número (2,75 → 20g = 55ml)
 
-    tempDisplay: '90 → 94°C', // como a temperatura aparece no painel de parâmetros
+    tempDisplay: '(definir)', // ⚠️ TEMPERATURA: você não passou — me diga e eu preencho
     grind:       'Grossa',    // moagem (painel de parâmetros)
-    bloomTemp:   '90°C',      // temperatura da pré-infusão (grade de água)
-    mainTemp:    '94°C',      // temperatura do despejo principal (grade de água)
+    bloomTemp:   '(definir)', // ⚠️ temperatura da água (grade de água)
+    mainTemp:    '(definir)', // ⚠️ temperatura da água (grade de água)
 
-    // Passo a passo. Cada passo é auto-contido:
-    //   start / end  →  segundos no timer (quando a barra começa e termina de encher).
-    //                   O timer avança sozinho usando esses tempos.
-    //   img          →  imagem/gif do passo
-    //   badge        →  etiqueta no canto (aceita os tokens {bloom}, {main}, etc.)
-    //   text/time    →  aceitam *itálico*, **negrito** e os tokens {cafe}/{bloom}/{main}/{total}
+    // start/end = segundos no timer (a barra de progresso e a linha do tempo usam isso).
+    // ⚠️ As imagens abaixo ainda são do Clever — troque pelas do V60 quando tiver.
     steps: [
       {
         num: '01', title: 'Preparo', badge: 'antes',
         img: 'https://i.imgur.com/U5dNVJz.jpeg', alt: 'Preparo',
         time: 'Antes de iniciar o timer', start: 0, end: 0,
-        text: 'Moa **grosso**. Coloque o filtro no Clever e **enxágue com água quente** para tirar o gosto de papel. Descarte essa água. Adicione {cafe} de café e nivele o leito.',
+        text: 'Moa **grosso**. Coloque o filtro de papel no V60 e **escalde com água quente** para tirar o gosto de papel; descarte essa água. Adicione {cafe} de café e nivele o leito.',
       },
       {
         num: '02', title: 'Pré-infusão', badge: '+{bloom}',
         img: 'https://i.imgur.com/G9kqroE.gif', alt: 'Pré-infusão',
-        time: '0:00 — 0:30 · 90°C', start: 0, end: 30,
-        text: 'Inicie o timer. Despeje {bloom} de água a **90°C** cobrindo todo o pó. Deixe em **imersão por 30s** para liberar o CO₂.',
+        time: '0:00 — 0:45', start: 0, end: 45,
+        text: 'Inicie o timer e despeje {bloom} de água cobrindo todo o pó. **Assim que terminar de despejar, faça uma agitação (swirl) no porta-filtro** para assentar o leito. Deixe em pré-infusão até **0:45**.',
       },
       {
-        num: '03', title: 'Despejo principal', badge: '+{main}',
-        img: 'https://i.imgur.com/pHMA7sE.gif', alt: 'Despejo principal',
-        time: '0:30 · 94°C · Total: {total}', start: 30, end: 60,
-        text: 'Aos **0:30**, complete com {main} de água a **94°C** até atingir o total. Despeje com calma, em movimentos circulares.',
+        num: '03', title: 'Ataque central', badge: '+{main}',
+        img: 'https://i.imgur.com/pHMA7sE.gif', alt: 'Ataque central',
+        time: '0:45 · Total: {total}', start: 45, end: 95,
+        text: 'Aos **0:45**, faça o **primeiro ataque no centro**, despejando até completar **{total}** (mais {main} de água).',
       },
       {
-        num: '04', title: 'Turbulência', badge: '10 mexidas',
-        img: 'https://i.imgur.com/tFWNtU9.gif', alt: 'Turbulência',
-        time: '1:00 → 1:15', start: 60, end: 75,
-        text: 'Em **1:00**, mexa com uma colher em movimentos circulares. **10 mexidas** firmes. Isso homogeneíza a extração.',
+        num: '04', title: 'Agitação', badge: 'swirl',
+        img: 'https://i.imgur.com/tFWNtU9.gif', alt: 'Agitação no porta-filtro',
+        time: 'logo após o ataque', start: 95, end: 105,
+        text: 'Depois do ataque, faça **uma nova agitação no porta-filtro** para uniformizar a extração.',
       },
       {
-        num: '05', title: 'Liberar o êmbolo', badge: 'até 2:30',
-        img: 'https://i.imgur.com/hK3SvgQ.gif', alt: 'Liberar o êmbolo',
-        time: '1:15 → 2:30', start: 75, end: 150,
-        text: 'Em **1:15**, apoie o Clever sobre a xícara. Isso **libera o êmbolo** e inicia a drenagem. Deixe escoar por completo. A extração termina por volta de **2:30**.',
+        num: '05', title: 'Drenagem', badge: '2:30 – 3:00',
+        img: 'https://i.imgur.com/hK3SvgQ.gif', alt: 'Drenagem',
+        time: 'termina entre 2:30 e 3:00', start: 105, end: 165,
+        text: 'Deixe escoar por completo. A extração deve **terminar entre 2:30 e 3:00**.',
       },
     ],
   },
@@ -259,7 +250,7 @@ const RECIPE = {
     role:     'Receita desenvolvida por',
     name:     'João Vitor\n*Alves Mingorance.*',
     bio:      'Gerente do **Lucca Lab**. Q-Grader credenciado. Garimpa o portfólio anual da casa, lote a lote.',
-    quote:    'A imersão do Clever é o método mais previsível para um fermentado tão expressivo. Pré-infusão a *90°C* para abrir os aromas sem comprometer a acidez málica. O restante a *94°C* extrai a doçura de morango e o maracujá. Turbulência uniformiza o leito. Drenagem controlada. Xícara limpa, doce, suculenta.',
+    quote:    'O V60 deixa esse conilon mostrar a cara: percolação limpa para separar o *cacau*, a *canela* e o retrogosto de *whisky*. Moagem grossa e os dois swirls para uma extração pareja. Corpo cremoso, acidez baixa, xícara definida.',
 
     coursesLabel: 'Formações ministradas',
     // Links de cursos. Deixe href: null para virar só uma etiqueta (sem link).
@@ -294,7 +285,7 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   footer: {
     brand: 'Lucca Cafés Especiais',
-    meta:  'Receita Lucca Lab · Clever · imersão limpa',
+    meta:  'Receita Lucca Lab · V60 · canéfora',
   },
 
 };

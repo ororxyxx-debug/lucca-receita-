@@ -161,17 +161,19 @@
       '</h3><p class="flavor-desc">' + rich(f.desc) + '</p></div>'
     ).join('');
 
-    /* jornada de temperatura (data-body evita conflito com [data-text]) */
-    const tt = $('tempTrack');
-    if (tt) tt.innerHTML = (R.sensorial.cooling || []).map((cl, i) =>
-      '<button class="temp-item' + (i === 0 ? ' active' : '') + '" data-idx="' + i +
-        '" data-deg="' + attr(cl.deg) + '" data-title="' + attr(cl.title) +
-        '" data-body="' + attr(cl.text) + '" data-notes="' + attr((cl.notes || []).join(' · ')) + '">' +
-        '<span class="temp-dot"></span>' +
-        '<span class="temp-deg">' + rich(cl.short || cl.deg) + '</span>' +
-        '<span class="temp-title">' + rich(cl.title) + '</span>' +
-      '</button>'
-    ).join('');
+    /* perfil sensorial — barras de 0 a 5 */
+    const pg = $('profileGrid');
+    if (pg) {
+      const maxv = 5;
+      pg.innerHTML = (R.sensorial.profile || []).map(p => {
+        const v   = Number(p.value) || 0;
+        const pct = Math.max(0, Math.min(100, (v / maxv) * 100));
+        return '<div class="profile-row">' +
+          '<span class="profile-label">' + rich(p.label) + '</span>' +
+          '<span class="profile-bar"><span class="profile-fill" style="--w:' + pct + '%"></span></span>' +
+          '<span class="profile-val">' + v + '</span></div>';
+      }).join('');
+    }
 
     /* "por que esse método" — numeração automática */
     const wg = $('whyGrid');
@@ -182,7 +184,8 @@
     ).join('');
 
     /* painel de parâmetros (pCoffee/pWater são atualizados pela dose) */
-    const pT = $('pTemp');  if (pT) pT.textContent = M.tempDisplay;
+    const tSet = v => v && !/definir/i.test(String(v));   // temperatura informada?
+    const pT = $('pTemp');  if (pT) pT.textContent = tSet(M.tempDisplay) ? M.tempDisplay : '—';
     const pG = $('pGrind'); if (pG) pG.textContent = M.grind;
     const rp = $('ratioPill'); if (rp) rp.textContent = cfg.ratioLbl;
     const it = $('idealTxt');  if (it) it.textContent = 'Nossa receita · ' + cfg.ideal + 'g';
@@ -191,8 +194,8 @@
     const v0 = doseVals(cfg.ideal);
     const wgr = $('waterGrid');
     if (wgr) wgr.innerHTML =
-      '<div class="wg"><span class="wg-l">Pré-infusão</span><span class="wg-v" id="w0">' + v0.bloom + '</span><span class="wg-s">g · ' + attr(M.bloomTemp) + '</span></div>' +
-      '<div class="wg"><span class="wg-l">Despejo</span><span class="wg-v" id="w1">' + v0.main + '</span><span class="wg-s">g · ' + attr(M.mainTemp) + '</span></div>' +
+      '<div class="wg"><span class="wg-l">Pré-infusão</span><span class="wg-v" id="w0">' + v0.bloom + '</span><span class="wg-s">g' + (tSet(M.bloomTemp) ? ' · ' + attr(M.bloomTemp) : '') + '</span></div>' +
+      '<div class="wg"><span class="wg-l">Despejo</span><span class="wg-v" id="w1">' + v0.main + '</span><span class="wg-s">g' + (tSet(M.mainTemp) ? ' · ' + attr(M.mainTemp) : '') + '</span></div>' +
       '<div class="wg"><span class="wg-l">Total</span><span class="wg-v" id="w2">' + v0.w + '</span><span class="wg-s">g</span></div>';
 
     /* passo a passo */

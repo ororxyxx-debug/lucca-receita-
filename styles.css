@@ -955,3 +955,25 @@ body.focus-mode .dotnav { display: none !important; }
 .brewline:hover .brewline-bar { box-shadow: 0 10px 34px -18px rgba(200,84,44,.5); }
 .dossier-photo, .step-media img { transition: transform .8s var(--ease2), filter .5s var(--ease); }
 .dossier-photo:hover { transform: scale(1.012); }
+
+/* ─── PERFIL SENSORIAL (barras 0–5) ─────────────────────────────────────────── */
+.profile { padding-top: 8px; }
+.profile-grid { display: grid; gap: 14px; margin-top: 8px; }
+.profile-row { display: grid; grid-template-columns: clamp(82px, 16vw, 120px) 1fr auto; align-items: center; gap: 16px; }
+.profile-label { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-4); }
+.profile-bar { position: relative; height: 6px; border-radius: 100px; background: var(--sand); overflow: hidden; }
+.profile-fill {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 0; border-radius: 100px;
+  background: linear-gradient(90deg, var(--terra-d), var(--terra));
+  transition: width 1s var(--ease2);
+}
+.profile.in .profile-fill { width: var(--w, 0); }
+.profile-row:nth-child(2) .profile-fill { transition-delay: .07s; }
+.profile-row:nth-child(3) .profile-fill { transition-delay: .14s; }
+.profile-row:nth-child(4) .profile-fill { transition-delay: .21s; }
+.profile-row:nth-child(5) .profile-fill { transition-delay: .28s; }
+.profile-row:nth-child(6) .profile-fill { transition-delay: .35s; }
+.profile-val {
+  font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--terra);
+  font-variation-settings: "opsz" 14, "SOFT" 60; min-width: 1ch; text-align: right;
+}
