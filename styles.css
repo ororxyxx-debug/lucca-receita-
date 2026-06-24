@@ -606,21 +606,15 @@ body.focus-mode .timer { top: 0; }
   .foot { flex-direction: column; align-items: flex-start; }
 }
 
-/* ─── MOVIMENTO REDUZIDO ──────────────────────────────────────────────────────
-   Respeita prefers-reduced-motion: zera as animações decorativas em loop
-   (Ken Burns, pulsos, parallax), transforma os reveals em presença imediata
-   e mantém o hero estático no scroll. Política única — não duplicar. */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .hero { transform: none !important; border-radius: 0 !important; }
-  .hero-bg-inner, .band-bg { animation: none !important; }
-  .reveal, .reveal-up { opacity: 1 !important; transform: none !important; }
-}
+/* ─── MOVIMENTO ───────────────────────────────────────────────────────────────
+   Decisão de marca: as animações tocam SEMPRE — inclusive quando o computador
+   está com "reduzir movimento / efeitos de animação" ligado (opção comum no
+   Windows e no celular). Por isso NÃO existe aqui um bloco
+   @media (prefers-reduced-motion: reduce) desligando nada: se existisse, em
+   máquinas com essa opção ativa o hero não encolheria, o Ken Burns pararia e os
+   reveals não apareceriam (foi exatamente o que aconteceu no desktop).
+   → Se um dia quiser voltar a respeitar a preferência do sistema, reintroduza
+     um @media (prefers-reduced-motion: reduce) aqui desligando o que precisar. */
 
 /* PRINT */
 @media print {
@@ -750,35 +744,35 @@ a.cc-link::before { transition: transform .45s var(--spring); }
 /* ─── [3] SCROLL-DRIVEN · reveals + parallax nativos (fallback p/ iOS Safari) ── */
 /* Onde houver suporte, o CSS dirige sozinho; onde não houver (Safari antigo),
    o seu JS .reveal/.in continua funcionando normalmente. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal, .reveal-up {
-      opacity: 1; transform: none;
-      animation: revealRise linear both;
-      animation-timeline: view();
-      animation-range: entry 2% entry 52%;
-    }
-    @keyframes revealRise {
-      from { opacity: 0; transform: translateY(46px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    /* parallax do fundo do hero (o .hero-bg-inner mantém o Ken Burns) */
-    .hero-bg {
-      animation: heroParallax linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100svh;
-    }
-    @keyframes heroParallax { to { transform: translateY(9%); } }
-    /* parallax sutil do texto da banda editorial */
-    .band-inner {
-      animation: bandRise linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-    @keyframes bandRise {
-      from { transform: translateY(34px); }
-      to   { transform: translateY(-26px); }
-    }
+/* Reveals + parallax dirigidos por scroll (rodam SEMPRE onde houver suporte —
+   sem trava de prefers-reduced-motion, conforme a decisão de movimento acima). */
+@supports (animation-timeline: view()) {
+  .reveal, .reveal-up {
+    opacity: 1; transform: none;
+    animation: revealRise linear both;
+    animation-timeline: view();
+    animation-range: entry 2% entry 52%;
+  }
+  @keyframes revealRise {
+    from { opacity: 0; transform: translateY(46px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* parallax do fundo do hero (o .hero-bg-inner mantém o Ken Burns) */
+  .hero-bg {
+    animation: heroParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100svh;
+  }
+  @keyframes heroParallax { to { transform: translateY(9%); } }
+  /* parallax sutil do texto da banda editorial */
+  .band-inner {
+    animation: bandRise linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  @keyframes bandRise {
+    from { transform: translateY(34px); }
+    to   { transform: translateY(-26px); }
   }
 }
 

@@ -603,9 +603,8 @@
 
   /* ───────── Reveals ───────── */
   function initReveals() {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const supportsScrollDriven = CSS.supports('animation-timeline: view()');
-    if (supportsScrollDriven && !reduceMotion) return;
+    if (supportsScrollDriven) return; // onde há scroll-timeline, o CSS anima sozinho (sempre)
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
