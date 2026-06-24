@@ -130,6 +130,10 @@
     const cImg = document.querySelector('[data-src="curator.photo"]');
     if (cImg) cImg.setAttribute('alt', plain(R.curator && R.curator.name) || R.coffeeName || '');
 
+    /* nota SCA conta de 0 até o valor ao entrar na tela */
+    const scoreNum = document.querySelector('.dossier-score-num');
+    if (scoreNum && scoreNum.textContent) scoreNum.setAttribute('data-countup', scoreNum.textContent);
+
     /* hero: título em linhas (mantém a animação de subida) */
     const ht = $('heroTitle');
     if (ht) ht.innerHTML = (R.hero.titleLines || []).map((ln, i) =>
@@ -145,7 +149,7 @@
     /* ficha técnica */
     const sg = $('specsGrid');
     if (sg) sg.innerHTML = (R.lote.specs || []).map(pair =>
-      '<div class="spec-cell"><div class="spec-cell-label">' + rich(pair[0]) +
+      '<div class="spec-cell reveal"><div class="spec-cell-label">' + rich(pair[0]) +
       '</div><div class="spec-cell-value">' + rich(pair[1]) + '</div></div>'
     ).join('');
 
@@ -236,7 +240,7 @@
     /* opções de feedback (WhatsApp) */
     const fb = $('fbOpts');
     if (fb) fb.innerHTML = (R.closing.feedback || []).map(f =>
-      '<button class="fb-opt" data-msg="' + attr(applyNameTokens(f.msg)) + '">' +
+      '<button class="fb-opt reveal" data-msg="' + attr(applyNameTokens(f.msg)) + '">' +
         '<span class="fb-label">' + rich(f.label) + '</span>' +
         '<span class="fb-sub">' + rich(f.sub) + '</span></button>'
     ).join('');
@@ -603,8 +607,14 @@
 
   /* ───────── Reveals ───────── */
   function initReveals() {
-    const supportsScrollDriven = CSS.supports('animation-timeline: view()');
-    if (supportsScrollDriven) return; // onde há scroll-timeline, o CSS anima sozinho (sempre)
+    /* cascata: cada grupo de .reveal irmãos entra em sequência (stagger) */
+    document.querySelectorAll('.reveal').forEach(el => {
+      const parent = el.parentElement;
+      if (!parent) return;
+      const sibs = Array.prototype.filter.call(parent.children, c => c.classList.contains('reveal'));
+      const idx = sibs.indexOf(el);
+      if (idx > 0) el.style.transitionDelay = (idx * 70) + 'ms';
+    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -619,6 +629,43 @@
       if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('in');
       else observer.observe(el);
     });
+  }
+
+  /* ───────── Count-up de números ───────── */
+  function initCountUp() {
+    const els = document.querySelectorAll('[data-countup]');
+    if (!els.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        countUp(en.target);
+        obs.unobserve(en.target);
+      });
+    }, { threshold: 0.45 });
+    els.forEach(el => obs.observe(el));
+  }
+
+  function countUp(el) {
+    const raw = el.getAttribute('data-countup') || '';
+    const m = raw.match(/-?\d+(?:[.,]\d+)?/);
+    if (!m) return;
+    const numStr = m[0];
+    const dec    = (numStr.split(/[.,]/)[1] || '').length;
+    const target = parseFloat(numStr.replace(/\./g, '').replace(',', '.'));
+    const prefix = raw.slice(0, m.index);
+    const suffix = raw.slice(m.index + numStr.length);
+    const dur    = 1300;
+    const ease   = t => 1 - Math.pow(1 - t, 3);
+    const fmt    = v => v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    let start = null;
+    function frame(ts) {
+      if (start == null) start = ts;
+      const p = Math.min(1, (ts - start) / dur);
+      el.textContent = prefix + fmt(target * ease(p)) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = prefix + fmt(target) + suffix;
+    }
+    requestAnimationFrame(frame);
   }
 
   /* ───────── Scroll Handler ───────── */
@@ -706,6 +753,7 @@
     initFeedback();
     initTempJourney();
     initReveals();
+    initCountUp();
     initDotNav();
     render();
 

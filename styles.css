@@ -744,19 +744,9 @@ a.cc-link::before { transition: transform .45s var(--spring); }
 /* ─── [3] SCROLL-DRIVEN · reveals + parallax nativos (fallback p/ iOS Safari) ── */
 /* Onde houver suporte, o CSS dirige sozinho; onde não houver (Safari antigo),
    o seu JS .reveal/.in continua funcionando normalmente. */
-/* Reveals + parallax dirigidos por scroll (rodam SEMPRE onde houver suporte —
-   sem trava de prefers-reduced-motion, conforme a decisão de movimento acima). */
+/* Parallax dirigido por scroll (nativo, onde houver suporte). Os reveals de
+   entrada são controlados pelo JS (com cascata/stagger), então ficam fora daqui. */
 @supports (animation-timeline: view()) {
-  .reveal, .reveal-up {
-    opacity: 1; transform: none;
-    animation: revealRise linear both;
-    animation-timeline: view();
-    animation-range: entry 2% entry 52%;
-  }
-  @keyframes revealRise {
-    from { opacity: 0; transform: translateY(46px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
   /* parallax do fundo do hero (o .hero-bg-inner mantém o Ken Burns) */
   .hero-bg {
     animation: heroParallax linear both;
@@ -873,3 +863,95 @@ a.cc-link::before { transition: transform .45s var(--spring); }
 }
 body.focus-mode .dotnav { display: none !important; }
 @media print { .dotnav, .brewline { display: none !important; } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREMIUM v4 · mais movimento em toda a página + glassmorphism elevado
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Tokens de vidro (mais blur + saturação + brilho de borda) ─────────────── */
+:root {
+  --glass-blur: 26px;
+  --glass-sat:  185%;
+  --glass-edge: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(14,14,13,.05);
+}
+
+/* ─── Reveal: cascata mais ágil (o delay por item é setado no JS) ───────────── */
+.reveal { transition: opacity .85s var(--ease2), transform .85s var(--ease2); }
+/* células da ficha técnica entram só com fade, p/ não desencaixar as bordas */
+.spec-cell.reveal { transform: none; }
+
+/* ─── Linhas que "desenham" ao revelar (só nos elementos marcados .reveal) ──── */
+.sec-index.reveal::before { width: 0; transition: width .7s var(--ease2) .15s; }
+.sec-index.reveal.in::before { width: 24px; }
+.dossier-section-label.reveal::after { transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease2) .1s; }
+.dossier-section-label.reveal.in::after { transform: scaleX(1); }
+
+/* ─── Entrada suave do menu de bolinhas ─────────────────────────────────────── */
+.dotnav { animation: dotnavIn 1s var(--ease2) .5s both; }
+@keyframes dotnavIn {
+  from { opacity: 0; transform: translate(14px, -50%); }
+  to   { opacity: 1; transform: translate(0, -50%); }
+}
+
+/* ─── GLASSMORPHISM elevado ─────────────────────────────────────────────────── */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* nav + timer: vidro mais profundo, com brilho no topo e sombra suave */
+  .nav.scrolled {
+    background: linear-gradient(180deg, rgba(251,249,244,.78), rgba(251,249,244,.60));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+            backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    border-bottom: 1px solid rgba(255,255,255,.45);
+    box-shadow: var(--glass-edge), 0 10px 34px -10px rgba(14,14,13,.10);
+  }
+  .timer {
+    background: linear-gradient(180deg, rgba(251,249,244,.74), rgba(251,249,244,.56));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+            backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    border-top: 1px solid rgba(255,255,255,.45);
+    border-bottom: 1px solid rgba(14,14,13,.05);
+    box-shadow: var(--glass-edge), 0 8px 26px -12px rgba(14,14,13,.10);
+  }
+
+  /* pílulas de vidro sobre imagens */
+  .step-num, .dossier-photo-stamp {
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+            backdrop-filter: blur(10px) saturate(150%);
+  }
+  .fab   { box-shadow: var(--glass-edge), 0 12px 32px -8px rgba(14,14,13,.34); }
+  .toast {
+    background: rgba(14,14,13,.80);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+            backdrop-filter: blur(14px) saturate(160%);
+  }
+}
+
+/* Painéis "vidro fosco" (dose, dica, detalhe de temperatura): sobre fundo liso
+   o blur real não acrescenta e pesa muito — então uso gradiente translúcido +
+   brilho de borda + sombra, que dá o mesmo aspecto premium sem custo de pintura. */
+.dial, .tip, .temp-detail.on {
+  background: linear-gradient(155deg, rgba(251,249,244,.92), rgba(244,239,230,.8));
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: var(--glass-edge), 0 22px 56px -28px rgba(14,14,13,.28);
+}
+
+/* luz suave atrás da receita p/ dar profundidade ao painel de dose */
+.recipe { position: relative; }
+.recipe::after {
+  content: ''; position: absolute; z-index: 0; pointer-events: none;
+  left: 50%; top: clamp(300px, 40vh, 520px); transform: translateX(-50%);
+  width: min(720px, 92vw); height: 440px;
+  background: radial-gradient(closest-side, rgba(200,84,44,.12), transparent 72%);
+}
+.recipe-inner { position: relative; z-index: 1; }
+
+/* ─── Micro-interações extra (a página inteira responde) ────────────────────── */
+.spec-cell { transition: background .4s var(--ease); }
+.spec-cell:hover { background: rgba(200,84,44,.045); }
+.dossier-score-num { display: inline-block; transform-origin: left center; transition: transform .5s var(--spring); }
+.dossier-score:hover .dossier-score-num { transform: scale(1.04); }
+.temp-note { transition: transform .4s var(--spring), background .3s var(--ease), border-color .3s var(--ease); }
+.temp-note:hover { transform: translateY(-2px); background: rgba(200,84,44,.1); border-color: rgba(200,84,44,.5); }
+.brewline-bar { transition: box-shadow .45s var(--ease); }
+.brewline:hover .brewline-bar { box-shadow: 0 10px 34px -18px rgba(200,84,44,.5); }
+.dossier-photo, .step-media img { transition: transform .8s var(--ease2), filter .5s var(--ease); }
+.dossier-photo:hover { transform: scale(1.012); }
