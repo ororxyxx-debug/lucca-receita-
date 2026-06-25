@@ -243,7 +243,7 @@ const RECIPE = {
       },
       {
         num: '04', title: 'Agitação', badge: 'swirl',
-        img: 'https://i.imgur.com/G29L1hd.gif', alt: 'Agitação no porta-filtro',
+        img: 'https://i.imgur.com/Q4G6j0y.mp4', alt: 'Agitação no porta-filtro',
         time: 'logo após o ataque', start: 95, end: 105,
         text: 'Depois do ataque, faça **uma nova agitação no porta-filtro** para uniformizar a extração.',
       },
