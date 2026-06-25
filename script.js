@@ -103,6 +103,23 @@
 
   let brewTotal = 0;
 
+  /* Define a mídia de fundo de um elemento: vídeo (.mp4/.webm, autoplay mudo) ou imagem. */
+  function setMedia(el, url, cls) {
+    if (!el || !url) return;
+    if (/\.(mp4|webm)(\?|$)/i.test(url)) {
+      el.style.backgroundImage = 'none';
+      const v = document.createElement('video');
+      v.src = url;
+      v.autoplay = true; v.loop = true; v.muted = true; v.defaultMuted = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
+      v.className = cls;
+      el.appendChild(v);
+      v.play().catch(() => {});
+    } else {
+      el.style.backgroundImage = "url('" + url + "')";
+    }
+  }
+
   function renderContent() {
     /* aba do navegador + descrição */
     if (R.pageTitle) document.title = R.pageTitle;
@@ -127,25 +144,9 @@
       if (v != null) el.style.backgroundImage = "url('" + v + "')";
     });
 
-    /* mídia do hero: vídeo (.mp4) ou imagem de fundo */
-    const heroBgInner = document.querySelector('.hero-bg-inner');
-    if (heroBgInner && R.hero && R.hero.image) {
-      if (/\.(mp4|webm)(\?|$)/i.test(R.hero.image)) {
-        heroBgInner.style.backgroundImage = 'none';   // evita baixar o gif de fallback do CSS
-        const v = document.createElement('video');
-        v.src = R.hero.image;
-        v.autoplay = true; v.loop = true; v.muted = true; v.defaultMuted = true; v.preload = 'auto';
-        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
-        v.className = 'hero-video';
-        heroBgInner.appendChild(v);
-        v.play().catch(() => {});
-      } else {
-        heroBgInner.style.backgroundImage = "url('" + R.hero.image + "')";
-      }
-    }
-
-    const cImg = document.querySelector('[data-src="curator.photo"]');
-    if (cImg) cImg.setAttribute('alt', plain(R.curator && R.curator.name) || R.coffeeName || '');
+    /* mídias de fundo: hero e seção do curador (vídeo .mp4/.webm ou imagem) */
+    setMedia(document.querySelector('.hero-bg-inner'), R.hero && R.hero.image, 'hero-video');
+    setMedia(document.querySelector('.curator-bg'),    R.curator && R.curator.background, 'curator-video');
 
     /* nota SCA conta de 0 até o valor ao entrar na tela */
     const scoreNum = document.querySelector('.dossier-score-num');
@@ -500,6 +501,7 @@
       if (fill) fill.style.width = (i < n) ? '100%' : '0%';
     });
     setBrewActive(n);
+    syncStepVideos();
 
     const lbl = $('timerLabel');
     if (lbl) lbl.textContent = cfg.labels[n] || '';
@@ -697,18 +699,22 @@
     requestAnimationFrame(frame);
   }
 
-  /* ───────── Vídeos dos passos (play só quando visível) ───────── */
+  /* ───────── Vídeos dos passos (tocam SÓ no passo ativo e visível) ───────── */
+  function syncStepVideos() {
+    document.querySelectorAll('.step-vid').forEach(v => {
+      const onActive = steps[activeStep] && steps[activeStep].contains(v);
+      if (onActive && v.dataset.vis === '1') { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      else { try { v.pause(); } catch {} }
+    });
+  }
   function initStepVideos() {
     const vids = document.querySelectorAll('.step-vid');
     if (!vids.length) return;
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        const v = e.target;
-        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
-        else { try { v.pause(); } catch {} }
-      });
+      entries.forEach(e => { e.target.dataset.vis = e.isIntersecting ? '1' : '0'; });
+      syncStepVideos();
     }, { threshold: 0.25 });
-    vids.forEach(v => io.observe(v));
+    vids.forEach(v => { v.dataset.vis = '0'; io.observe(v); });
   }
 
   /* ───────── Scroll Handler ───────── */
@@ -764,6 +770,8 @@
     else if (e.key.toLowerCase() === 'r') window.resetTimer();
     else if (e.key.toLowerCase() === 'f') window.toggleFocus();
     else if (e.key.toLowerCase() === 'm') window.toggleSound();
+    else if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'j') { e.preventDefault(); window.goStep(activeStep + 1, true); }
+    else if (e.key === 'ArrowLeft'  || e.key.toLowerCase() === 'k') { e.preventDefault(); window.goStep(activeStep - 1, true); }
   });
 
   /* ───────── Init ───────── */

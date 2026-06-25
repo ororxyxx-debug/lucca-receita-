@@ -984,3 +984,59 @@ body.focus-mode .dotnav { display: none !important; }
 .step.active .step-media video { filter: grayscale(0); transform: scale(1.03); }
 .skeleton video { opacity: 0; transition: opacity .6s var(--ease); }
 .skeleton.is-loaded video { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREMIUM v5 · curador com fundo de vídeo + passo a passo mais dinâmico
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Curador: a seção inteira ganha fundo de vídeo ─────────────────────────── */
+.curator-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--ink); }
+.curator-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.curator-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(14,14,13,.82) 0%, rgba(14,14,13,.7) 48%, rgba(14,14,13,.88) 100%);
+}
+.curator::before  { z-index: 1; }                       /* o glow terracota fica acima do vídeo */
+.curator-inner    { position: relative; z-index: 2; }   /* conteúdo no topo */
+.curator-head     { gap: 0; }                            /* sem a bolinha, não precisa do gap */
+
+/* ─── Passo a passo: guiado, tátil e com transições que fazem sentido ───────── */
+.step { position: relative; transition: opacity .55s var(--ease), transform .6s var(--spring); }
+.step:not(.active)        { opacity: .45; transform: scale(.99); }
+.step:not(.active):hover  { opacity: .72; }
+.step:active              { transform: scale(.992); }
+
+/* barra de acento à esquerda do passo ativo (cresce com mola) */
+.step::before {
+  content: ''; position: absolute; left: -12px; top: 20%; bottom: 20%; width: 2px;
+  background: var(--terra); border-radius: 2px;
+  transform: scaleY(0); transform-origin: center; opacity: 0;
+  transition: transform .55s var(--spring), opacity .4s var(--ease);
+}
+.step.active::before { transform: scaleY(1); opacity: 1; }
+
+/* número do passo: glow + leve aumento no ativo */
+.step-num { transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .45s var(--ease), transform .45s var(--spring); }
+.step.active .step-num { box-shadow: 0 0 0 4px rgba(200,84,44,.16), 0 6px 18px rgba(200,84,44,.45); transform: scale(1.08); }
+
+/* media do ativo ganha profundidade */
+.step-media { transition: box-shadow .5s var(--ease); }
+.step.active .step-media { box-shadow: 0 26px 54px -30px rgba(14,14,13,.55); }
+
+/* título do ativo com sublinhado que cresce */
+.step-title { position: relative; }
+.step-title::after {
+  content: ''; position: absolute; left: 0; bottom: -5px; height: 2px; width: 0;
+  background: var(--terra); border-radius: 2px; transition: width .6s var(--spring) .1s;
+}
+.step.active .step-title::after { width: 100%; }
+
+/* conteúdo do ativo entra com leve deslize/stagger */
+.step-time, .step-text { transition: opacity .5s var(--ease2), transform .5s var(--spring); }
+.step:not(.active) .step-time { opacity: .6; transform: translateY(3px); }
+.step.active .step-time { transition-delay: .05s; }
+.step.active .step-text { transition-delay: .1s; }
+
+/* badge do ativo "respira" */
+.step-badge { transition: transform .45s var(--spring), background .3s var(--ease), border-color .3s var(--ease); }
+.step.active .step-badge { transform: translateY(-1px); background: rgba(200,84,44,.12); border-color: rgba(200,84,44,.4); }

@@ -67,7 +67,7 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   hero: {
     eyebrow: 'Receita Lucca Lab · Método V60',
-    image:   'https://i.imgur.com/MbK9slu.mp4',   // fundo do hero (vídeo — versão leve do gif)
+    image:   'https://i.imgur.com/BUzYHhV.png',   // fundo do hero (imagem)
 
     // Título grande. Uma linha por item. Use *...* na que deve ficar terracota.
     titleLines: [
@@ -244,10 +244,10 @@ const RECIPE = {
      9) QUEM DESENVOLVEU  ·  o curador da receita
      ───────────────────────────────────────────────────────────────────────── */
   curator: {
-    photo:    'https://i.imgur.com/RUy0IRZ.jpeg',
-    fallback: 'GG',          // iniciais, caso a foto não carregue
+    // Fundo animado da seção inteira (vídeo leve — versão MP4 do gif):
+    background: 'https://i.imgur.com/nzOQpOe.mp4',
     role:     'Receita desenvolvida por',
-    name:     'Gabriel\n*Gonzalez.*',
+    name:     'Gabriel\n*Neiva de Lima.*',
     bio:      'Barista do **Lucca Cafés Especiais** e **vice-campeão brasileiro de barista** no ano passado — agora em busca do título. Experiente, técnico e apaixonado pelo que faz.',
     quote:    `Desenvolvemos esta receita para evidenciar aquilo que torna os cafés especiais tão fascinantes: a *transparência dos sabores*, a doçura natural e a expressão única da origem.
 
