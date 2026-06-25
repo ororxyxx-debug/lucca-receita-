@@ -1044,33 +1044,36 @@ body.focus-mode .dotnav { display: none !important; }
 /* ═══════════════════════════════════════════════════════════════════════════
    MODO BLOQUEADO (captura via Instagram) · ative com ?ig na URL
    ═══════════════════════════════════════════════════════════════════════════ */
-.recipe-lock { display: none; }                  /* escondido no modo normal */
+.recipe-lock { display: none; }                       /* escondido no modo normal */
+.lock-stage, .lock-backdrop { display: contents; }    /* normal: somem do layout */
 
-/* na isca, some o que é "receita de verdade" */
-body.locked .dial,
+/* na isca, some só o que é longo demais */
 body.locked .timer,
 body.locked .brewline,
 body.locked .steps-head,
 body.locked #stepsClever,
 body.locked .tip,
 body.locked .closing { display: none !important; }
+body.locked .dotnav-item[data-target="closing"] { display: none; }
 
-/* um "espião" borrado dos parâmetros, atrás do vidro (provoca, mas não entrega) */
-body.locked .params {
-  filter: blur(5px); pointer-events: none; -webkit-user-select: none; user-select: none; opacity: .55;
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 100%);
-          mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 100%);
+/* empilha: receita (parâmetros + dose) BORRADA atrás, cartão de VIDRO na frente */
+body.locked .lock-stage { display: grid; grid-template-areas: "stack"; align-items: center; justify-items: center; }
+body.locked .lock-backdrop {
+  display: block; grid-area: stack; width: 100%;
+  filter: blur(7px); opacity: .55; pointer-events: none; -webkit-user-select: none; user-select: none;
 }
-body.locked .dotnav-item[data-target="closing"] { display: none; }  /* some a bolinha de feedback */
 
-/* ─── Cartão de bloqueio ────────────────────────────────────────────────────── */
+/* ─── Cartão de bloqueio · VIDRO FOSCO (a receita borrada aparece através) ───── */
 body.locked .recipe-lock {
-  display: block; position: relative; z-index: 3; text-align: center;
-  margin-top: clamp(-30px, -3vh, -16px);          /* encaixa sob o blur que some */
-  padding: clamp(32px, 5vw, 52px) clamp(24px, 4vw, 44px); border-radius: 10px;
-  background: linear-gradient(165deg, rgba(251,249,244,.97), rgba(244,239,230,.93));
-  border: 1px solid rgba(255,255,255,.6);
-  box-shadow: var(--glass-edge), 0 40px 80px -34px rgba(14,14,13,.45);
+  display: block; grid-area: stack; place-self: center; position: relative; z-index: 3;
+  width: min(560px, 100%); text-align: center;
+  padding: clamp(36px, 5vw, 58px) clamp(26px, 4vw, 48px); border-radius: 20px;
+  /* translúcido: a receita borrada atrás aparece ATRAVÉS do cartão = vidro,
+     sem backdrop-filter (que, empilhado sobre o blur de trás, trava a pintura) */
+  background: linear-gradient(160deg, rgba(251,249,244,.66), rgba(244,239,230,.5));
+  border: 1px solid rgba(255,255,255,.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 60px rgba(255,255,255,.28),
+              0 50px 100px -42px rgba(14,14,13,.55), 0 10px 30px -20px rgba(14,14,13,.4);
 }
 .lock-badge {
   display: inline-flex; align-items: center; justify-content: center;
