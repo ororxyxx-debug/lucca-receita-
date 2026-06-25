@@ -83,7 +83,7 @@ const RECIPE = {
      ───────────────────────────────────────────────────────────────────────── */
   hero: {
     eyebrow: 'Receita Lucca Lab · Método V60',
-    image:   'https://i.imgur.com/BUzYHhV.png',   // fundo do hero (imagem)
+    image:   'https://i.imgur.com/OvQUm1T.jpeg',   // fundo do hero (imagem)
 
     // Título grande. Uma linha por item. Use *...* na que deve ficar terracota.
     titleLines: [
