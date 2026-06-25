@@ -1040,3 +1040,66 @@ body.focus-mode .dotnav { display: none !important; }
 /* badge do ativo "respira" */
 .step-badge { transition: transform .45s var(--spring), background .3s var(--ease), border-color .3s var(--ease); }
 .step.active .step-badge { transform: translateY(-1px); background: rgba(200,84,44,.12); border-color: rgba(200,84,44,.4); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODO BLOQUEADO (captura via Instagram) · ative com ?ig na URL
+   ═══════════════════════════════════════════════════════════════════════════ */
+.recipe-lock { display: none; }                  /* escondido no modo normal */
+
+/* na isca, some o que é "receita de verdade" */
+body.locked .dial,
+body.locked .timer,
+body.locked .brewline,
+body.locked .steps-head,
+body.locked #stepsClever,
+body.locked .tip,
+body.locked .closing { display: none !important; }
+
+/* um "espião" borrado dos parâmetros, atrás do vidro (provoca, mas não entrega) */
+body.locked .params {
+  filter: blur(5px); pointer-events: none; -webkit-user-select: none; user-select: none; opacity: .55;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0, #000 28%, transparent 100%);
+}
+body.locked .dotnav-item[data-target="closing"] { display: none; }  /* some a bolinha de feedback */
+
+/* ─── Cartão de bloqueio ────────────────────────────────────────────────────── */
+body.locked .recipe-lock {
+  display: block; position: relative; z-index: 3; text-align: center;
+  margin-top: clamp(-30px, -3vh, -16px);          /* encaixa sob o blur que some */
+  padding: clamp(32px, 5vw, 52px) clamp(24px, 4vw, 44px); border-radius: 10px;
+  background: linear-gradient(165deg, rgba(251,249,244,.97), rgba(244,239,230,.93));
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: var(--glass-edge), 0 40px 80px -34px rgba(14,14,13,.45);
+}
+.lock-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: 50%; background: var(--terra); color: var(--paper);
+  margin-bottom: 20px; box-shadow: 0 10px 26px -10px rgba(200,84,44,.7);
+}
+.lock-badge svg { width: 24px; height: 24px; }
+.lock-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--terra); margin-bottom: 14px; }
+.lock-title {
+  font-family: var(--serif); font-weight: 300; line-height: 1.05; letter-spacing: -.03em;
+  font-size: clamp(1.9rem, 4.4vw, 3rem); color: var(--ink);
+  font-variation-settings: "opsz" 144, "SOFT" 50; margin-bottom: 18px;
+}
+.lock-title em { font-style: italic; color: var(--terra); font-variation-settings: "opsz" 144, "SOFT" 80; }
+.lock-text {
+  font-family: var(--sans); font-size: clamp(14px, 1.6vw, 16px); font-weight: 300; line-height: 1.7;
+  color: var(--ink-3); max-width: 46ch; margin: 0 auto clamp(26px, 4vh, 34px);
+}
+.lock-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.lock-cta {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  padding: 16px 30px; border-radius: 100px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  transition: transform .5s var(--spring), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.lock-cta-primary { background: var(--terra); color: var(--paper); }
+.lock-cta-primary::after { content: '→'; transition: transform .45s var(--spring); }
+.lock-cta-primary:hover { background: var(--terra-d); transform: translateY(-3px); }
+.lock-cta-primary:hover::after { transform: translateX(4px); }
+.lock-cta-ghost { background: none; color: var(--ink); border: 1px solid rgba(14,14,13,.25); }
+.lock-cta-ghost:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); transform: translateY(-3px); }
+.lock-cta:active { transform: scale(.97); }

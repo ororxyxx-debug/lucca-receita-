@@ -275,6 +275,15 @@
         '<span class="fb-sub">' + rich(f.sub) + '</span></button>'
     ).join('');
 
+    /* CTAs do cartão de bloqueio (modo ?ig) */
+    const buy = $('lockBuy');
+    if (buy && R.product) { buy.href = R.product.url; buy.textContent = (R.lock && R.lock.buyLabel) || 'Comprar'; }
+    const lwpp = $('lockWpp');
+    if (lwpp && R.lock) {
+      lwpp.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(applyNameTokens(R.lock.wppMsg || ''));
+      lwpp.textContent = R.lock.wppLabel || 'WhatsApp';
+    }
+
     buildDotNav();
     buildBrewline();
   }
@@ -776,6 +785,10 @@
 
   /* ───────── Init ───────── */
   function init() {
+    /* modo bloqueado (captura via Instagram): ative com ?ig na URL */
+    const q = new URLSearchParams(location.search);
+    if (q.has('ig') || q.has('bloqueada') || q.has('lock')) document.body.classList.add('locked');
+
     renderContent();
 
     slider = $('slider');

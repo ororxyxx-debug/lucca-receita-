@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 
@@ -218,6 +218,23 @@
       </div>
     </div>
 
+    <!-- Bloqueio (modo Instagram / captura): aparece só com ?ig na URL -->
+    <div class="recipe-lock" id="recipeLock">
+      <span class="lock-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="9" rx="2"/>
+          <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+        </svg>
+      </span>
+      <p class="lock-eyebrow" data-text="lock.eyebrow"></p>
+      <h3 class="lock-title" data-text="lock.title"></h3>
+      <p class="lock-text" data-text="lock.text"></p>
+      <div class="lock-actions">
+        <a class="lock-cta lock-cta-primary" id="lockBuy" target="_blank" rel="noopener"></a>
+        <a class="lock-cta lock-cta-ghost"   id="lockWpp" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+
     <!-- Timer -->
     <div class="timer" id="timer">
       <span class="timer-label" id="timerLabel">Pronto?</span>
@@ -311,16 +328,9 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<button class="fab" id="fab" onclick="window.print()" aria-label="Salvar / imprimir">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 15V3m0 12l-4-4m4 4 4-4"/>
-    <path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
-  </svg>
-</button>
-
   <!-- 1) Conteúdo da receita · edite SÓ este arquivo para trocar de café -->
-  <script src="dados-receita.js"></script>
+  <script src="dados-receita.js?v=2"></script>
   <!-- 2) Motor da página · não precisa mexer -->
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

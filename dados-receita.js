@@ -38,6 +38,22 @@ const RECIPE = {
   coffeeName: 'Canéfora Fazenda Venturim',   // nome do café (usado em mensagens)
   whatsapp:   '554187627267',                // número do WhatsApp (só dígitos, com DDI 55)
 
+  // ── Estratégia / captura (versão BLOQUEADA para o Instagram) ──────────────
+  // Página do produto (botão "comprar" da versão bloqueada):
+  product: {
+    url: 'https://luccacafesespeciais.com.br/produto/cafe-especial/250-g/cafe-especial-venturim/',
+  },
+  // Cartão de bloqueio — aparece SÓ quando a URL termina em ?ig
+  // (ex.: .../lucca-receita-/?ig). No link normal/limpo a receita fica liberada.
+  lock: {
+    eyebrow:  'Receita exclusiva',
+    title:    'A receita completa é\n*de quem leva o café.*',
+    text:     'O sensorial está aí em cima. Os parâmetros, os tempos e o passo a passo no V60 ficam liberados para quem compra o Venturim. Garanta o seu — ou chame a gente.',
+    buyLabel: 'Quero o Venturim',
+    wppLabel: 'Falar no WhatsApp',
+    wppMsg:   'Oi! Vi o Venturim no Instagram e quero saber mais sobre o café e a receita.',
+  },
+
   // Aparece na aba do navegador e quando o link é compartilhado:
   pageTitle:       'Receita V60 · Canéfora Fazenda Venturim — Lucca Cafés Especiais',
   pageDescription: 'Receita Lucca Lab para o café Canéfora Fazenda Venturim no método V60. Parâmetros, timer e passo a passo.',
